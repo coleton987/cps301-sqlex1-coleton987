@@ -1,0 +1,24 @@
+name: Instructor Tests
+
+on: [push]
+
+jobs:
+  build:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      # Checkout official tests
+      uses: actions/checkout@v2
+      with:
+        repository: bjucps/cps301-tests
+        path: tests
+    # Checkout student submission
+    - uses: actions/checkout@v2
+      with:
+        path: submission
+        fetch-depth: 0    # Fetch all history
+    # Execute tests
+    - name: Run tests
+      run: bash tests/rungh.sh
+      
